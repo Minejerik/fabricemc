@@ -2,6 +2,7 @@ package minejerik.fabricemc;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import static net.minecraft.server.command.CommandManager.*;
 
 public class fabricemc implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
@@ -27,6 +29,13 @@ public class fabricemc implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("fabricemc")
+				.executes(context -> {
+					return 1;
+				})));
+
+
+
 		// Iterate through all registered items
 		for (Item item : Registries.ITEM) {
 			// Do something with each item, like printing its identifier
